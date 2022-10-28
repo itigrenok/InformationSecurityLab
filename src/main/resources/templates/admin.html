@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example </title>
+    <div th:replace="fragments/header::header-css"/>
+</head>
+
+<body>
+    <div th:replace="fragments/header::header"/>
+
+    <div class="container">
+        <div class="main-content" style="flex-direction: column">
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col">Номер пользователя</th>
+                    <th scope="col">Уникальное наименование пользователя</th>
+                    <th scope="col">Аккаунт заблокирован?</th>
+                    <th scope="col">Необходима замена пароля?</th>
+<!--                    <th scope="col">Идентификатор варианта маски для пароля</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user,iter : ${users}">
+                    <th scope="row" th:text="${iter.index}"></th>
+                    <td th:text="${user.login}"></td>
+                    <td th:if="${user.blockAccount}">Да</td>
+                    <td th:unless="${user.blockAccount}">Нет</td>
+                    <td th:if="${user.transportPassword}">Да</td>
+                    <td th:unless="${user.transportPassword}">Нет</td>
+<!--                    <td th:text="${user.limitationId}"></td>-->
+                    <td>
+                        <a th:href="@{/admin/updateUser/{userName}(userName = ${user.login})}">Изменить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a th:href="@{/admin/addUser}">Добавить пользователя</a>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Spring Security Example </title>
+  <div th:replace="fragments/header::header-css"/>
+</head>
+
+<body>
+<div th:replace="fragments/header::header"/>
+
+<div class="container">
+
+  <div class="main-content">
+    <form th:action="@{/admin/updateUser}" th:method="post" th:object="${user}">
+      <div class="form-group">
+        <label for="exampleInputEmail1" style="font-size: 20px; margin-left: 5px;">Имя пользователя</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Имя пользователя" th:value="${user.login}" th:field="*{login}">
+      </div>
+      <div class="form-group">
+        <label for="checkbox1" style="font-size: 20px; margin-left: 5px;">Заблокировать</label>
+        <input type="checkbox" id="checkbox1" th:value="${user.blockAccount}" th:field="*{blockAccount}">
+      </div>
+      <div class="form-group">
+        <label for="checkbox2" style="font-size: 20px; margin-left: 5px;">Сбросить пароль</label>
+        <input type="checkbox" id="checkbox2" th:value="${user.transportPassword}" th:field="*{transportPassword}">
+      </div>
+      <div>
+        <label for="inputState" style="font-size: 20px; margin-left: 5px;">Ограничения для пароля</label>
+        <select id="inputState" class="form-control" th:field="*{limitationId}">
+          <option th:each="mask : ${passwordMasks}" th:text="${mask.description}" th:value="${mask.id}"></option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Сохранить</button>
+    </form>
+  </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

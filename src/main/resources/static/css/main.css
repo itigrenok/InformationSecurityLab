@@ -1,0 +1,8 @@
+.container .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0ddef;
+    padding: 20px 0 20px 0;
+    min-height: 600px;
+}
